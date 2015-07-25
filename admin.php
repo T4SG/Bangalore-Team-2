@@ -62,7 +62,6 @@ if(isset($_SESSION['user'])){
       <ul class="nav nav-stacked">
         <li><a href="javascript:;"><i class="glyphicon glyphicon-flash"></i> Alerts</a></li>
         <li><a href="javascript:;"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
-        <li><a href="javascript:;"><i class="glyphicon glyphicon-briefcase"></i> Tools</a></li>
         <li><a href="javascript:;"><i class="glyphicon glyphicon-time"></i> Real-time</a></li>
         <li><a href="javascript:;"><i class="glyphicon glyphicon-plus"></i> Advanced..</a></li>
       </ul>

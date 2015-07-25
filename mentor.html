@@ -3,11 +3,12 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>Admin</title>
+		<title>Mentor</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/styles.css" rel="stylesheet">
+		
 	</head>
 	<body>
 <!-- header -->
@@ -42,7 +43,7 @@
     <div class="row">
         <div class="col-sm-3">
             <!-- Left column -->
-            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i>Toolbox</strong></a>
+            <h3 class="text-success"><strong><i class="glyphicon glyphicon-wrench"></i> Toolbox</strong></h3>
 
             <hr>
 
@@ -50,21 +51,18 @@
                 <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#userMenu"> <i class="glyphicon glyphicon-chevron-down"></i> Mentor Profile</a>
                     <ul class="nav nav-stacked collapse in" id="userMenu">
                        
-                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Mentee Profile <span class="badge badge-info"></span></a></li>
-						<li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Schedule a Meet <span class="badge badge-info"></span></a></li>
+                        <li><a id="mentee" ><i class="glyphicon glyphicon-user"></i> Mentee Profile <span class="badge badge-info"></span></a></li>
+						 <li><a id="mentee" href="#discussion"><i class="glyphicon glyphicon-comment"></i> Discussions <span class="badge badge-info"></span></a></li>
+						<li><a id="opener" data-toggle="modal" data-target=".bs-example-modal-sm" ><i class="glyphicon glyphicon-calendar"></i> Schedule a Meet <span class="badge badge-info"></span></a></li>
                         
                     </ul>
                 </li>
-                <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> <i class="glyphicon glyphicon-chevron-right"></i>feedback</a>
+                <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu2"> <i class="glyphicon glyphicon-chevron-down"></i> Feedback</a>
 
                     <ul class="nav nav-stacked collapse" id="menu2">
-                        <li><a href="#">Information &amp; Stats</a>
+                        <li><a href="#" id="info">Information &amp; Stats</a>
                         </li>
-                        <li><a href="#">Views</a>
-                        
-                        <li><a href="#"></a>
-                        </li>
-                        <li><a href="#">Alerts</a>
+                        <li><a href="#" id="alert">Alerts</a>
                         </li>
                     </ul>
                 </li>
@@ -81,20 +79,13 @@
         <div class="col-sm-9">
 
             
-            <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+            <h3 class="text-primary"><strong><i class="glyphicon glyphicon-dashboard"></i> Dashboard</strong></h3>
             <hr>
 
             <div class="row">
                 <!-- center left-->
                 <div class="col-md-6">
-                    
-
-                    <hr>
-
-                    
-                    <hr>
-
-                    <div class="panel panel-default">
+                    <div id="panel1" class="panel panel-default">
                         <div class="panel-heading">
                             <h4>Reports</h4></div>
                         <div class="panel-body">
@@ -198,7 +189,40 @@
                         <!--/panel content-->
                     </div>
                     <!--/panel-->
-
+				<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <i class="glyphicon glyphicon-wrench pull-right"></i>
+                                <h4> Message Admin </h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form form-vertical">
+                                <div class="control-group">
+                                    <label> Name </label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" placeholder="Enter Name">
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label>Message</label>
+                                    <div class="controls">
+                                        <textarea class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label></label>
+                                    <div class="controls">
+                                        <button type="submit" class="btn btn-primary">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--/panel content-->
+                    </div>
                     
                     <!--/panel-->
 
@@ -210,7 +234,7 @@
 
             <hr>
 
-            <a href="#"><strong><i class="glyphicon glyphicon-comment"></i> Discussions</strong></a>
+            <h4 id="discussion"><strong><i class="glyphicon glyphicon-comment"></i> Discussions</strong></h4>
 
             <hr>
 
@@ -253,9 +277,48 @@
     </div>
     <!-- /.modal-dalog -->
 </div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+     <div class="modal-content adjust">
+	 <div style="margin:10px 10px;padding:10px;">
+	 <h4 class="text-primary">Meeting</h4><hr>
+ <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-3 control-label">Reason</label>
+    <div class="col-sm-8">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Reason">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-3 control-label">Date</label>
+    <div class="col-sm-8">
+      <input type="date" class="form-control" id="inputPassword3" placeholder="Date">
+    </div>
+  </div>
+    <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+</form>
+      </div>
+    </div>
+  </div>
+  </div>
 <!-- /.modal -->
 	<!-- script references -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		$("#mentee").click(function() {
+			$("#panel1").toggle();
+			});
+		$("#info").click(function() {
+			$("#panel1").toggle();
+			});
+		$("#alert").click(function() {
+			$("#panel1").toggle();
+			});
+		</script>
 	</body>
 </html>
