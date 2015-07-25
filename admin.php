@@ -166,9 +166,9 @@ if(isset($_SESSION['user'])){
     
     <div class="col-md-12">
       <hr>
-      <a href="#"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></a>  
+      <h2 class="text-center text-success"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></h2>     
       <hr>    
-    </div>
+	</div>
     <div class="col-md-8">
       
       <table class="table table-striped">
