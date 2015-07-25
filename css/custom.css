@@ -1,0 +1,193 @@
+@font-face{
+ font-family:'Raleway';
+ src: url('../fonts/Raleway-Regular.ttf'); 
+ }
+ @font-face{
+ font-family:'Ostrich';
+ src: url('../fonts/ostrich-regular.ttf'); 
+ }
+ h4{
+ font-family:Courier New;
+ }
+ #tdetails{
+border-radius:15px;
+background-color:#FAF0D5;
+padding:25px;
+max-width:200px;
+width:100%;
+height:auto;
+ }
+ .calendarbox{
+ display:block;
+ position:relative;
+left:100px;
+top:00px;
+ }
+ .mar{
+ margin:5px;
+ 
+ }
+.align-centre{
+text-align:center;
+display:block;
+width:100%;
+margin:auto;
+}
+
+.margin{
+margin:50px auto;
+max-width:600px;
+}
+
+.fancy{
+background-color: #efefef;
+border: 1px solid #dcdcdc;
+border-radius: 5px;
+padding: 5px 10px;
+text-align: left;
+}
+.error{
+text-align:center;
+text-shadow:1px;
+margin:30px auto;
+width:100%;
+color:red;
+font-size:22px;
+}
+.myheading{
+font-family:ms comic;
+font-size-adjust:auto;
+font-weight:300px;
+font-size:40pt;
+text-align:center;
+color:#66CC33;
+}
+.qb{
+position:relative;
+left:230px;
+margin-top:30px;
+font-family:ms comic;
+font-size-adjust:auto;
+font-weight:300px;
+font-size:40pt;
+text-align:center;
+color:#66CC33;
+}
+.adjust{
+margin:5px;
+padding:30px;
+}
+
+.head{
+font-family: "Raleway";
+font-weight: 300;
+color: #333;
+margin-top:50px;
+}
+.align-right{
+margin-left:120px;
+}
+
+.align-right1{
+display:inline;
+margin-left:200px;
+}
+.one{
+width:100%;
+margin:10px auto;
+}
+#sdetails{
+
+padding:45px;
+opacity:5%;
+color:black;
+}
+.margtop{
+margin-top:-80px;
+}
+.error-img{
+width:100%;
+max-width:400px;
+margin:190px auto;
+}
+.right{
+margin-left:400px;
+margin-top:-50px;
+}
+footer{
+background-color:#990000;
+color:white;
+font-size:16px;
+font-family:Century Gothic;
+}
+.align{
+display:inline;
+}
+.align1{
+display:inline;
+margin-left:80%;
+}
+.underline{
+text-decoration:underline;
+}
+
+.FrontImage{
+display:block;
+height:150px;
+max-width:150px;
+width:100%;
+margin:54px auto;
+}
+.back{
+background-image:url(../images/bmsce.png);
+background-position:center;
+background-repeat:no-repeat;
+}
+.marg{
+margin-top:30px;;
+}
+.logo{
+max-width:50px;
+max-height:50px;
+margin-top:-5px;
+}
+.btn-theme04 {
+  color: #fff;
+  background-color: #ed5565;
+  border-color: #da4453;
+}
+.ig {
+    display:block;
+	max-width:250px;
+	width:100%;
+	margin:2px auto;
+	margin-bottom:10px;
+}
+.clock{
+    display:block;
+	max-width:150px;
+	width:100%;
+	height:auto;
+	margin:2px auto;
+	margin-bottom:10px;
+
+}
+.product-panel-2 {
+	background: white;
+	text-align: center;
+}
+.product-panel-2 .badge {
+	position: relative;
+	top: 10px;
+	left: 5px;
+}
+.badge-hot {
+	background: #ed5565;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+	border-radius: 100%;
+}
