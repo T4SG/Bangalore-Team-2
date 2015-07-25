@@ -12,6 +12,21 @@
 	</head>
 	<body>
 <!-- header -->
+<?php
+session_start();
+if(isset($_SESSION['user'])){
+	$id = $_SESSION['user'];
+	include_once "credential.php";
+    //$id =($_REQUEST['id']);
+    //$passwd = $_REQUEST['passwd']; 
+	$con = mysql_connect($server ,$username ,$password) or die("Error!! Can't connect to server");
+	mysql_select_db("cfg") or die("Error !! Can't select the required database.");
+	$query = "select * from admin where AID = '$id'";
+	$result = mysql_query($query) or die("Query failed !! :".mysql_error());
+	$row = mysql_fetch_array($result); 
+	}
+?>	
+
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -79,38 +94,41 @@
             <div class="row">
                 <!-- center left-->
                 <div class="col-md-6">
-                    <div id="panel1" class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>Reports</h4></div>
-                        <div class="panel-body">
+				   <?php
+				    $id = $_SESSION['user'];
+					$query = "select * from report where MID = $id";
+					$result = mysql_query($query) or die("Query failed !! :".mysql_error()); 
+					while($row = mysql_fetch_array($result)){
+					echo "
+                    <div id='panel1' class='panel panel-default'>
+                        <div class='panel-heading'>
+                            <h4>".$row['TASK']."</h4></div>
+                        <div class='panel-body'>
 
                             <small>Success</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%">
-                                    <span class="sr-only">72% Complete</span>
+                            <div class='progress'>
+                                <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='72' aria-valuemin='0' aria-valuemax='100' style='width: 72%'>
+                                    <span class='sr-only'>72% Complete</span>
                                 </div>
                             </div>
                             <small>Info</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                    <span class="sr-only">20% Complete</span>
+                            <div class='progress'>
+                                <div class='progress-bar progress-bar-info progress-bar-striped active' role='progressbar' aria-valuenow='20' aria-valuemin='0' aria-valuemax='100' style='width: 20%'>
+                                    <span class='sr-only'>20% Complete</span>
                                 </div>
                             </div>
                             <small>Warning</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                    <span class="sr-only">60% Complete (warning)</span>
+                            <div class='progress'>
+                                <div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='60' aria-valuemin='0' aria-valuemax='100' style='width: 60%'>
+                                    <span class='sr-only'>60% Complete (warning)</span>
                                 </div>
                             </div>
                             <small>Danger</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                    <span class="sr-only">80% Complete</span>
-                                </div>
                             </div>
-                        </div>
                         <!--/panel-body-->
-                    </div>
+                    </div>";
+					}
+					?>
                     <!--/panel-->
 
                     <hr>

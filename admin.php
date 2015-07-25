@@ -8,6 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+		
 	</head>
 	<body>
 <!-- Header -->
@@ -16,13 +18,14 @@ session_start();
 if(isset($_SESSION['user'])){
 	$id = $_SESSION['user'];
 	include_once "credential.php";
-    $id =($_REQUEST['id']);
-    $passwd = $_REQUEST['passwd']; 
-    $con = mysql_connect($server ,$username ,$password) or die("Error!! Can't connect to server");
-    mysql_select_db($databaseName) or die("Error !! Can't select the required database.");
-	$query = "select * from student where usn = '$usn'";
+    //$id =($_REQUEST['id']);
+    //$passwd = $_REQUEST['passwd']; 
+	$con = mysql_connect($server ,$username ,$password) or die("Error!! Can't connect to server");
+	mysql_select_db("cfg") or die("Error !! Can't select the required database.");
+	$query = "select * from admin where AID = '$id'";
 	$result = mysql_query($query) or die("Query failed !! :".mysql_error());
 	$row = mysql_fetch_array($result); 
+	}
 ?>	
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
   <div class="container">
@@ -61,7 +64,7 @@ if(isset($_SESSION['user'])){
       
       <ul class="nav nav-stacked">
         <li><a href="javascript:;"><i class="glyphicon glyphicon-flash"></i> Alerts</a></li>
-        <li><a href="javascript:;"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
+        <li><a href="#reports"><i class="glyphicon glyphicon-list-alt"></i> Reports</a></li>
         <li><a href="javascript:;"><i class="glyphicon glyphicon-time"></i> Real-time</a></li>
         <li><a href="javascript:;"><i class="glyphicon glyphicon-plus"></i> Advanced..</a></li>
       </ul>
@@ -116,7 +119,6 @@ if(isset($_SESSION['user'])){
               
                 <ul class="nav nav-justified">
          			<li><a href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-heart"></i></a></li>
          			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-comment"></i><span class="count">3</span></a><ul class="dropdown-menu" role="menu"><li><a href="#">1. Is there a way..</a></li><li><a href="#">2. Hello, admin. I would..</a></li><li><a href="#"><strong>All messages</strong></a></li></ul></li>
          			<li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
          			<li><a title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="glyphicon glyphicon-plus-sign"></span></a></li>
@@ -139,14 +141,6 @@ if(isset($_SESSION['user'])){
                     Service
                   </a>
                   <a href="#" class="btn btn-info col-sm-3">
-                    <i class="glyphicon glyphicon-cloud"></i><br>
-                    Cloud
-                  </a>
-                  <a href="#" class="btn btn-info col-sm-3">
-                    <i class="glyphicon glyphicon-cog"></i><br>
-                    Tools
-                  </a>
-                  <a href="#" class="btn btn-info col-sm-3">
                     <i class="glyphicon glyphicon-question-sign"></i><br>
                     Help
                   </a>
@@ -165,27 +159,43 @@ if(isset($_SESSION['user'])){
     
     <div class="col-md-12">
       <hr>
-      <h2 class="text-center text-success"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></h2>     
+      <h2 class="text-center text-success" id="reports"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></h2>     
       <hr>    
 	</div>
     <div class="col-md-8">
       
-      <table class="table table-striped">
-        <thead>
-          <tr><th>Visits</th><th>ROI</th><th>Source</th><th>Description and Notes</th></tr>
+      <table class="table table-striped" id="report">
+       <thead>
+            <tr>
+                <th>Mentor</th>
+                <th>Mentee</th>
+                <th>Task</th>
+				<th>Date</th>
+            </tr>
         </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Mentor</th>
+                <th>Mentee</th>
+                <th>Task</th>
+				<th>Date</th>
+		   </tr>
+        </tfoot>
         <tbody>
-          <tr><td>45</td><td>2.45%</td><td>Direct</td><td>Sam sapien massa, aliquam in cursus ut, ullamcorper in tortor. 
-          Aliquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td></tr>
-          <tr><td>289</td><td>56.2%</td><td>Referral</td><td>After RWD massa, aliquam in cursus ut, ullamcorper in tortor. 
-          Aliquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td></tr>
-          <tr><td>98</td><td>25%</td><td>Type</td><td>Wil sapien massa, aliquam in cursus ut, ullamcorper in tortor. 
-          Liquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td></tr>
-          <tr><td>109</td><td>8%</td><td>..</td><td>Forfoot aliquam in cursus ut, ullamcorper in tortor. 
-          Okma mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td></tr>
-          <tr><td>34</td><td>14%</td><td>..</td><td>Mikel sapien massa, aliquam in cursus ut, ullamcorper in tortor. 
-          Maliquam mauris arcu, tristique a lobortis vitae, condimentum feugiat justo.</td></tr>
-        </tbody>
+            <?php
+			$query = "select mentor.mname,student.sname, report.task, report.date from mentor,student,report where mentor.mid IN(select mid from report) and student.sid IN(select sid from report)";
+			$result = mysql_query($query) or die("Query failed !! :".mysql_error()); 
+			while($row = mysql_fetch_array($result)){
+			echo "<tr>
+                <td>".$row['mname']."</td>
+                <td>".$row['sname']."</td>
+                <td>".$row['task']."</td>
+				<td>".$row['date']."</td>
+               </tr>";
+			}
+			?>
+		</tbody>
       </table>
       
       <hr>              
@@ -197,28 +207,24 @@ if(isset($_SESSION['user'])){
           <li><a href="#messages" data-toggle="tab">Messages</a></li>
           <li><a href="#settings" data-toggle="tab">Settings</a></li>
         </ul>
-        
+        <?php
+			$query = "select * from admin where AID = '$id'";
+			$result = mysql_query($query) or die("Query failed !! :".mysql_error());
+			$row = mysql_fetch_array($result); 
+		?>
         <div class="tab-content">
-          <div class="tab-pane active" id="profile">
-            <h4><i class="glyphicon glyphicon-user"></i></h4>
-            Lorem profile dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-            <p>Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-              dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-              Aliquam in felis sit amet augue.</p>
+          <div class="tab-pane active" id="profile" style="margin-left:10%;">
+            <h2><i class="glyphicon glyphicon-user"></i></h2>
+            <h5><b>Name:</b><?php echo $row['A_NAME'];?></h5> 
+            <h5><b>Level:</b><?php echo $row['LEVEL'];?></h5>
+			<h5><b>Phone :</b><?php echo $row['A_PHNO'];?></h5>
+			<h5><b>Email:</b><?php echo $row['A_EMAIL'];?></h5>
           </div>
-          <div class="tab-pane" id="messages">
-            <h4><i class="glyphicon glyphicon-comment"></i></h4>
-            Message ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-            <p>Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-              dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-              Aliquam in felis sit amet augue.</p>
-          </div>
+          <div class="tab-pane" id="message">
+		 
+		  </div>
           <div class="tab-pane" id="settings">
             <h4><i class="glyphicon glyphicon-cog"></i></h4>
-            Lorem settings dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-            <p>Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-              dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-              Aliquam in felis sit amet augue.</p>
           </div>
         </div>
       </div>
@@ -226,18 +232,6 @@ if(isset($_SESSION['user'])){
       
       <hr>
       
-      <div class="panel panel-default">
-        <div class="panel-heading"><h4>Messages</h4></div>
-        <div class="panel-body">
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Hosting virtual mailbox serv..</a>
-            <a href="#" class="list-group-item">Dedicated server doesn't..</a>
-            <a href="#" class="list-group-item">RHEL 6 install on new..</a>
-          </div>
-        </div>
-      </div>
-      
-      <hr>
       
       <div class="alert alert-info">
         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -247,10 +241,7 @@ if(isset($_SESSION['user'])){
     
     </div>
     <div class="col-md-4">
-      
-      
-      
-      <hr>
+    <hr>
               
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -261,30 +252,30 @@ if(isset($_SESSION['user'])){
         </div>
         <div class="panel-body">
           
-          <form class="form form-vertical">
+          <form class="form form-vertical" id="messagementor" action="scripts/messagementor.php">
             <div class="control-group">
               <label>Name</label>
               <div class="controls">
-                <input type="text" class="form-control" placeholder="Enter Name">
+                <input type="text" name="mname" class="form-control" placeholder="Enter Name">
               </div>
             </div>      
             <div class="control-group">
-              <label>Title</label>
+              <label>Subject</label>
               <div class="controls">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="text" name="sub" class="form-control" placeholder="Enter Subject">
                 
               </div>
-            </div>   
+            </div>  
             <div class="control-group">
               <label>Details</label>
               <div class="controls">
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" name="details"></textarea>
               </div>
             </div> 
             <div class="control-group">
               <label>Purpose</label>
               <div class="controls">
-                <select class="form-control"><option>General Question</option><option>Server Issues</option><option>Billing Question</option></select>
+                <select class="form-control" name="purpose"><option>General Question</option><option>Server Issues</option><option>Billing Question</option></select>
               </div>
             </div>    
             <div class="control-group">
@@ -339,5 +330,12 @@ if(isset($_SESSION['user'])){
 	<!-- script references -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		<script>
+		$(document).ready(function() {
+			$('#report').DataTable();
+			;.} );
+		  
+	  </script>
 	</body>
 </html>
