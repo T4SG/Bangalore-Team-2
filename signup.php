@@ -53,7 +53,7 @@
 	<form action="main.php" method="get">
 		<label for="exampleInputText" class="col-sm-2 control-label">ID</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" name="usn" id="usn" placeholder="Enter UserName" required="required" onchange="checkUSN(this.value)" />
+		<input type="text" class="form-control" name="usn" id="usn" placeholder="Enter UserName" required="required"/><!-- onchange="checkUSN(this.value)" -->
 	    </div>
 	</div>
 	<div class="form-group">
