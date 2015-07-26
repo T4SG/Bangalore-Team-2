@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>Login</title>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+      <link href="css/bootstrap.css" type="text/css" rel="stylesheet" />
+      <link href="css/custom.css" type="text/css" rel="stylesheet" />
+	  <script type="text/javascript">
+	     function checkId(id){
+		    var flag = id.search(/^[0-9]$/);
+			if(flag != 0){
+			     alert("Wrong ID format !!");
+				document.getElementById("Mid").select();
+				document.getElementById("Mid").focus();
+				}
+		 }
+	  
+	  </script>
+	 </head>
+<body>
+<div class="container">
+<img src="img/logo.jpg" alt="DFS" class="FrontImage img-circle img-responsive" />
+<form action="scripts/login.php" method="post" role="form" class="form-horizontal margin">
+<fieldset class="margin">
+<legend class="fancy"><span class="glyphicon glyphicon-log-in"></span> Login</legend>
+	<div class="form-group">
+		<label for="exampleInputText" class="col-sm-2 control-label">Username</label>
+		<div class="col-sm-10">
+		<input type="text" class="form-control" name="id" id="Mid" maxlength="20" placeholder="Enter ID" required="required" onchange="checkId(this.value)" />
+	    </div>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword1" class="col-sm-2 control-label">Password</label>
+		<div class="col-sm-10">
+		<input class="form-control" type="password" name="passwd" id="passwd" required="required" placeholder="Enter Password"/>
+	    </div>
+	</div>
+	<div class="form-group">
+	     <div class="col-sm-offset-2 col-sm-10" >
+		    <a href="forget.php">Forgot Password ?</a>
+		    <a href="newacc.php" class="align-right1">Create Account</a>
+		 </div>
+	</div>
+    <div class="form-group">
+	          <div class="col-sm-offset-2 col-sm-10" action="file:///C:/Users/Admin/Desktop/jp/login.html">
+	          <input type="submit" name="button1" class="btn btn-primary" value="Login" />
+	          </div>
+	</div>
+</fieldset>
+</form>
+</div>
+</body>
+</html>

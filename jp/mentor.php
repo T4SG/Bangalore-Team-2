@@ -12,6 +12,19 @@
 	</head>
 	<body>
 <!-- header -->
+<?php
+session_start();
+if(isset($_SESSION['user'])){
+	$id = $_SESSION['user'];
+	include_once "credential.php";
+	$con = mysql_connect($server ,$username ,$password) or die("Error!! Can't connect to server");
+	mysql_select_db("cfg") or die("Error !! Can't select the required database.");
+	$query = "select * from admin where AID = '$id'";
+	$result = mysql_query($query) or die("Query failed !! :".mysql_error());
+	$row = mysql_fetch_array($result); 
+	}
+?>	
+
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -62,7 +75,7 @@
                     <ul class="nav nav-stacked collapse" id="menu2">
                         <li><a href="#" id="info">Information &amp; Stats</a>
                         </li>
-                        <li><a href="#" id="alert">Alerts</a>
+                        <li><a href="main.php" id="alert">Form</a>
                         </li>
                     </ul>
                 </li>
@@ -79,38 +92,40 @@
             <div class="row">
                 <!-- center left-->
                 <div class="col-md-6">
-                    <div id="panel1" class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>Tasks</h4></div>
-                        <div class="panel-body">
+				   <?php
+				   error_reporting(0);
+				    $id = $_SESSION['user'];
+					$query = "select * from report where MID = $id";
+					$result = mysql_query($query) or die("Query failed !! :".mysql_error());
+                    echo "<div id='panel1'>";		
+					$ctr=1;
+					while($row = mysql_fetch_array($result)){
+					echo " 
+                    <div id='panel' class='panel panel-default'>
+                        <div class='panel-heading'>
+                            <h4>".$ctr++.". ".$row['TASK']."</h4></div>
+                        <div class='panel-body'>
 
                             <small>Success</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%">
-                                    <span class="sr-only">72% Complete</span>
+                            <div class='progress'>
+                                <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='72' aria-valuemin='0' aria-valuemax='100' style='width: 72%'>
+                                    <span class='sr-only'>72% Complete</span>
                                 </div>
                             </div>
-                            <small>Info</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                    <span class="sr-only">20% Complete</span>
-                                </div>
-                            </div>
+              
                             <small>Warning</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                    <span class="sr-only">60% Complete (warning)</span>
+                            <div class='progress'>
+                                <div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='60' aria-valuemin='0' aria-valuemax='100' style='width: 60%'>
+                                    <span class='sr-only'>60% Complete (warning)</span>
                                 </div>
                             </div>
-                            <small>Danger</small>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                    <span class="sr-only">80% Complete</span>
-                                </div>
+                     
                             </div>
-                        </div>
                         <!--/panel-body-->
-                    </div>
+                    </div>";
+					}
+					echo "</div>";
+					?>
                     <!--/panel-->
 
                     <hr>
@@ -235,13 +250,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(3 mins ago)</small> The 3rd page reports don't contain any links. Does anyone know why..</a></li>
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(1 hour ago)</small> Hi all, I've just post a report that show the relationship betwe..</a></li>
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart"></i> <small>(2 hrs ago)</small> Paul. That document you posted yesterday doesn't seem to contain the over..</a></li>
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i> <small>(4 hrs ago)</small> The map service on c243 is down today. I will be fixing the..</a></li>
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart"></i> <small>(yesterday)</small> I posted a new document that shows how to install the services layer..</a></li>
-                        <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(yesterday)</small> ..</a></li>
-                    </ul>
+					<?php
+					$query = "select * from discussion";
+					$result = mysql_query($query) or die("Query failed !! :".mysql_error());			
+					while($row = mysql_fetch_array($result)){
+                        echo "<li class='list-group-item'><h4 class='text-primary'><i class='glyphicon glyphicon-flash'></i> ".$row['disc']." </h4><small class='text-right'>MID :".$row['mid']."</small><span style='margin-left:10%;'>Tags :".$row['tag']."</span></li><hr>";
+                     }
+					 ?>
+					</ul>
                 </div>
             </div>
         </div>
@@ -306,6 +322,7 @@
 		<script type="text/javascript">
 		$("#mentee").click(function() {
 			$("#panel1").toggle();
+			$("")
 			});
 		$("#info").click(function() {
 			$("#panel1").toggle();
