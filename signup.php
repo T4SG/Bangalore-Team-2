@@ -44,11 +44,13 @@
 	  </script>
 	 </head>
 <body>
+
 <div class="container">
 <form action="create.php" method="post" role="form" class="form-horizontal margin">
 <fieldset class="margin">
 <legend class="fancy"><span class="glyphicon glyphicon-user"></span>Feedback Form</legend>
 	<div class="form-group">
+	<form action="main.php" method="get">
 		<label for="exampleInputText" class="col-sm-2 control-label">ID</label>
 		<div class="col-sm-10">
 		<input type="text" class="form-control" name="usn" id="usn" placeholder="Enter UserName" required="required" onchange="checkUSN(this.value)" />
@@ -90,7 +92,7 @@
 	
     <div class="form-group">
 	          <div class="col-sm-offset-2 col-sm-10">
-			     <input type="submit" name="button1" class="btn btn-primary" value="Submit" onclick="javascript: form.action='success.php';" />
+			     <input type="submit" name="button1" class="btn btn-primary" value="Submit" onclick="javascript: form.action='feedback.php';" />
 			     <a href="index.php" role="button" class="btn btn-danger right">Back</a>
 	          </div> 
 	</div>
